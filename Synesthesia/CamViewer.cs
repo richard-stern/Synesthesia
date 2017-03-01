@@ -1,10 +1,5 @@
 ﻿using AForge.Video;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 //------------------------------------------------------------------------------------
@@ -13,13 +8,16 @@ class CamViewer
 {
 	private PictureBox m_PictureBox = null;
 	private VideoSource m_VideoSource = null;
+	private Image m_DefaultImage = null;
 	private bool m_bPlaying = false;
 	private int m_nDeviceIndex = -1;
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public CamViewer()
+	public CamViewer(PictureBox pictureBox)
 	{
+		m_PictureBox = pictureBox;
+		m_DefaultImage = m_PictureBox.Image;
 	}
 
 	//------------------------------------------------------------------------------------
@@ -41,16 +39,10 @@ class CamViewer
 		if(m_VideoSource != null)
 		{
 			m_VideoSource.Stop();
+			m_PictureBox.Image = m_DefaultImage;
 			m_bPlaying = false;
 			m_VideoSource.RemoveFrameEventCallback(Repaint);
 		}
-	}
-
-	//------------------------------------------------------------------------------------
-	//------------------------------------------------------------------------------------
-	public void SetPictureBox(PictureBox pictureBox)
-	{
-		m_PictureBox = pictureBox;
 	}
 
 	//------------------------------------------------------------------------------------

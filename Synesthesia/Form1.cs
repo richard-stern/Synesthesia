@@ -30,12 +30,8 @@ namespace Synesthesia
 			InitCameraLists();
 
 			//Initialise viewers
-			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
-			{
-				m_aCamViewer[i] = new CamViewer();
-			}
-			m_aCamViewer[0].SetPictureBox(Viewer0);
-			m_aCamViewer[1].SetPictureBox(Viewer1);
+			m_aCamViewer[0] = new CamViewer(Viewer0);
+			m_aCamViewer[1] = new CamViewer(Viewer1);
 			
 			//Init other variables
 			SnapToEdgeButon.BackColor = Color.Green;
@@ -169,36 +165,47 @@ namespace Synesthesia
 			{
 				if(m_aCamViewer[nViewerId].GetInitialised())
 				{
-					int nDeviceIndex = m_aCamViewer[nViewerId].GetDeviceIndex();
 					if(m_aCamViewer[nViewerId].GetIsPlaying())
-					{
-						m_aCamViewer[nViewerId].Stop();
-						SetViewerButtonsEnabled(nDeviceIndex, true);
-					}
+						StopViewer(nViewerId);
 					else
-					{
-						m_aCamViewer[nViewerId].Play();
-						SetViewerButtonsEnabled(nDeviceIndex, false);
-					}
+						StartViewer(nViewerId);
 				}
 			}
 			else
 			{
-				if (m_aCamViewer[nViewerId].GetIsPlaying())
-				{
-					int nPrevDeviceIndex = m_aCamViewer[nViewerId].GetDeviceIndex();
-					m_aCamViewer[nViewerId].Stop();
-					SetViewerButtonsEnabled(nPrevDeviceIndex, true);
-				}
+				if(m_aCamViewer[nViewerId].GetIsPlaying())
+					StopViewer(nViewerId);
 
 				ToolStripItem button = sendingButton as ToolStripItem;
 				int nDeviceIndex = (int)button.Tag;
 
 				VideoSource source = m_DeviceManager.GetDevice(nDeviceIndex);
 				m_aCamViewer[nViewerId].SetDevice(source, nDeviceIndex);
-				m_aCamViewer[nViewerId].Play();
-				SetViewerButtonsEnabled(nDeviceIndex, false);
+
+				StartViewer(nViewerId);
 			}
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void StartViewer(int nViewerId)
+		{
+			int nDeviceIndex = m_aCamViewer[nViewerId].GetDeviceIndex();
+			m_aCamViewer[nViewerId].Play();
+			SetViewerButtonsEnabled(nDeviceIndex, false);
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void StopViewer(int nViewerId)
+		{
+			int nDeviceIndex = m_aCamViewer[nViewerId].GetDeviceIndex();
+			m_aCamViewer[nViewerId].Stop();
+			SetViewerButtonsEnabled(nDeviceIndex, true);
+
+			//m_DefaultImage
+			//Viewer1.Visible = false;
+			//Height -= Viewer1.Height;
 		}
 
 		//------------------------------------------------------------------------------------

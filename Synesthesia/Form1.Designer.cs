@@ -43,9 +43,8 @@
 			// 
 			// Viewer0
 			// 
-			this.Viewer0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Viewer0.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.Viewer0.Image = ((System.Drawing.Image)(resources.GetObject("Viewer0.Image")));
 			this.Viewer0.Location = new System.Drawing.Point(12, 28);
 			this.Viewer0.Name = "Viewer0";
 			this.Viewer0.Size = new System.Drawing.Size(336, 255);
@@ -109,8 +108,8 @@
 			// 
 			// Viewer1
 			// 
-			this.Viewer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Viewer1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+			this.Viewer1.Image = ((System.Drawing.Image)(resources.GetObject("Viewer1.Image")));
 			this.Viewer1.Location = new System.Drawing.Point(12, 289);
 			this.Viewer1.Name = "Viewer1";
 			this.Viewer1.Size = new System.Drawing.Size(336, 255);
