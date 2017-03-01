@@ -128,6 +128,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Synesthesia";
 			this.Text = "Synesthesia";
+			this.Shown += new System.EventHandler(this.Form1_Shown);
 			this.Move += new System.EventHandler(this.CamViewer_Move);
 			((System.ComponentModel.ISupportInitialize)(this.Viewer0)).EndInit();
 			this.ToolBar.ResumeLayout(false);

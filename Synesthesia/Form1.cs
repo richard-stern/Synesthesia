@@ -8,11 +8,15 @@ namespace Synesthesia
 	public partial class Synesthesia : Form
 	{
 		const int CAM_VIEWER_COUNT = 2;
+		const float INV_ASPECT_RATIO = 1.0f / (4.0f / 3.0f);
 
 		private DeviceManager m_DeviceManager = null;
 		private CamViewer[] m_aCamViewer = new CamViewer[CAM_VIEWER_COUNT];
+		private PictureBox[] m_aPictureBoxes = new PictureBox[CAM_VIEWER_COUNT];
 		private int m_nSnapDist = 25;
 		private bool m_bSnapEnabled = true;
+		private int m_nViewerAreaTop = 0;
+		private int m_nToolBarPadding = 6;
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
@@ -30,14 +34,30 @@ namespace Synesthesia
 			InitCameraLists();
 
 			//Initialise viewers
-			m_aCamViewer[0] = new CamViewer(Viewer0);
-			m_aCamViewer[1] = new CamViewer(Viewer1);
+			m_aPictureBoxes[0] = Viewer0;
+			m_aPictureBoxes[1] = Viewer1;
+
+			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
+			{
+				m_aCamViewer[i] = new CamViewer(m_aPictureBoxes[i]);
+			}
 			
 			//Init other variables
 			SnapToEdgeButon.BackColor = Color.Green;
 			OnTopButton.BackColor = Color.Green;
 			TopLevel = true;
 			TopMost = true;
+
+			Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
+			int nTitleBarHeight = screenRectangle.Top - Top;
+			m_nViewerAreaTop = nTitleBarHeight + ToolBar.Height + m_nToolBarPadding;
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void Form1_Shown(Object sender, EventArgs e)
+		{
+			UpdateLayout();
 		}
 
 		//------------------------------------------------------------------------------------
@@ -188,11 +208,37 @@ namespace Synesthesia
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
+		private void UpdateLayout()
+		{
+			int nNeededHeight = 0;
+			int nVisibleCount = 0;
+			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
+			{
+				if(m_aPictureBoxes[i].Visible)
+				{
+					int boxHeight = (int)(Width * INV_ASPECT_RATIO);
+					nNeededHeight += boxHeight;
+					m_aPictureBoxes[i].Height = boxHeight;
+					m_aPictureBoxes[i].Top = m_nViewerAreaTop + (nVisibleCount * boxHeight);
+					++nVisibleCount;
+				}
+			}
+
+			if(nNeededHeight < m_nViewerAreaTop)
+				nNeededHeight = m_nViewerAreaTop;
+			Height = nNeededHeight;
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
 		private void StartViewer(int nViewerId)
 		{
 			int nDeviceIndex = m_aCamViewer[nViewerId].GetDeviceIndex();
 			m_aCamViewer[nViewerId].Play();
 			SetViewerButtonsEnabled(nDeviceIndex, false);
+
+			m_aPictureBoxes[nViewerId].Visible = true;
+			UpdateLayout();
 		}
 
 		//------------------------------------------------------------------------------------
@@ -203,6 +249,8 @@ namespace Synesthesia
 			m_aCamViewer[nViewerId].Stop();
 			SetViewerButtonsEnabled(nDeviceIndex, true);
 
+			m_aPictureBoxes[nViewerId].Visible = false;
+			UpdateLayout();
 			//m_DefaultImage
 			//Viewer1.Visible = false;
 			//Height -= Viewer1.Height;
