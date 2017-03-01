@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CamViewer
+namespace Synesthesia
 {
 	static class Program
 	{
@@ -16,7 +16,7 @@ namespace CamViewer
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new CamViewer());
+			Application.Run(new Synesthesia());
 		}
 	}
 }

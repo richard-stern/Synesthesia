@@ -1,81 +1,92 @@
 ﻿using AForge.Video;
-using AForge.Video.DirectShow;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 //------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------
-public class VideoSource
+class CamViewer
 {
-	VideoCaptureDevice m_VideoDevice = null;
-	private string m_szID = "";
-	private string m_szName = "";
+	private PictureBox m_PictureBox = null;
+	private VideoSource m_VideoSource = null;
+	private bool m_bPlaying = false;
+	private int m_nDeviceIndex = -1;
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public VideoSource(string szName, string szID)
+	public CamViewer()
 	{
-		m_VideoDevice = new VideoCaptureDevice(szID);
-		m_szName = szName;
-		m_szID = szID;
 	}
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public void SetFrameEventCallback(NewFrameEventHandler handler)
+	public void Play()
 	{
-		if(m_VideoDevice != null)
-			m_VideoDevice.NewFrame += handler;
-	}
-
-	//------------------------------------------------------------------------------------
-	//------------------------------------------------------------------------------------
-	public void RemoveFrameEventCallback(NewFrameEventHandler handler)
-	{
-		if(m_VideoDevice != null)
-			m_VideoDevice.NewFrame -= handler;
-	}
-
-	//------------------------------------------------------------------------------------
-	//------------------------------------------------------------------------------------
-	public void Start()
-	{
-		if(m_VideoDevice != null)
-			m_VideoDevice.Start();
+		if(m_VideoSource != null)
+		{
+			m_VideoSource.SetFrameEventCallback(Repaint);
+			m_VideoSource.Start();
+			m_bPlaying = true;
+		}
 	}
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
 	public void Stop()
 	{
-		if(m_VideoDevice != null)
-			m_VideoDevice.SignalToStop();
+		if(m_VideoSource != null)
+		{
+			m_VideoSource.Stop();
+			m_bPlaying = false;
+			m_VideoSource.RemoveFrameEventCallback(Repaint);
+		}
 	}
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public string GetName()
+	public void SetPictureBox(PictureBox pictureBox)
 	{
-		return m_szName;
+		m_PictureBox = pictureBox;
 	}
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public void SetName(string szName)
+	public void SetDevice(VideoSource videoSource, int nDeviceIndex)
 	{
-		m_szName = szName;
+		m_VideoSource = videoSource;
+		m_nDeviceIndex = nDeviceIndex;
 	}
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public bool GetIsRunning()
+	public int GetDeviceIndex()
 	{
-		return m_VideoDevice.IsRunning;
+		return m_nDeviceIndex;
 	}
 
 	//------------------------------------------------------------------------------------
 	//------------------------------------------------------------------------------------
-	public override string ToString()
+	public bool GetInitialised()
 	{
-		return GetName();
+		return m_VideoSource != null;
+	}
+
+	//------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------
+	public bool GetIsPlaying()
+	{
+		return m_bPlaying;
+	}
+
+	//------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------
+	private void Repaint(object sender, NewFrameEventArgs eventArgs)
+	{
+		Bitmap bitmap = eventArgs.Frame;
+		m_PictureBox.Image = (Bitmap)bitmap.Clone();
 	}
 }

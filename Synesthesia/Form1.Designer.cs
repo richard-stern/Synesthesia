@@ -1,6 +1,6 @@
-﻿namespace CamViewer
+﻿namespace Synesthesia
 {
-	partial class CamViewer
+	partial class Synesthesia
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,129 +28,125 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CamViewer));
-			this.PowerButton = new System.Windows.Forms.Button();
-			this.Viewer = new System.Windows.Forms.PictureBox();
-			this.DeviceList = new System.Windows.Forms.ComboBox();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Synesthesia));
+			this.Viewer0 = new System.Windows.Forms.PictureBox();
 			this.ToolBar = new System.Windows.Forms.ToolStrip();
-			this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-			this.toolStripSplitButton2 = new System.Windows.Forms.ToolStripSplitButton();
-			this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-			((System.ComponentModel.ISupportInitialize)(this.Viewer)).BeginInit();
+			this.Camera1Button = new System.Windows.Forms.ToolStripSplitButton();
+			this.Camera2Button = new System.Windows.Forms.ToolStripSplitButton();
+			this.OnTopButton = new System.Windows.Forms.ToolStripButton();
+			this.SnapToEdgeButon = new System.Windows.Forms.ToolStripButton();
+			this.Viewer1 = new System.Windows.Forms.PictureBox();
+			((System.ComponentModel.ISupportInitialize)(this.Viewer0)).BeginInit();
 			this.ToolBar.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Viewer1)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// PowerButton
+			// Viewer0
 			// 
-			this.PowerButton.Location = new System.Drawing.Point(194, 44);
-			this.PowerButton.Name = "PowerButton";
-			this.PowerButton.Size = new System.Drawing.Size(91, 23);
-			this.PowerButton.TabIndex = 1;
-			this.PowerButton.Text = "Start";
-			this.PowerButton.UseVisualStyleBackColor = true;
-			this.PowerButton.Click += new System.EventHandler(this.PowerButton_Click);
-			// 
-			// Viewer
-			// 
-			this.Viewer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.Viewer0.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.Viewer.Location = new System.Drawing.Point(12, 87);
-			this.Viewer.Name = "Viewer";
-			this.Viewer.Size = new System.Drawing.Size(640, 432);
-			this.Viewer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-			this.Viewer.TabIndex = 2;
-			this.Viewer.TabStop = false;
-			// 
-			// DeviceList
-			// 
-			this.DeviceList.FormattingEnabled = true;
-			this.DeviceList.Location = new System.Drawing.Point(12, 46);
-			this.DeviceList.Name = "DeviceList";
-			this.DeviceList.Size = new System.Drawing.Size(176, 21);
-			this.DeviceList.TabIndex = 3;
+			this.Viewer0.Location = new System.Drawing.Point(12, 28);
+			this.Viewer0.Name = "Viewer0";
+			this.Viewer0.Size = new System.Drawing.Size(336, 255);
+			this.Viewer0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.Viewer0.TabIndex = 2;
+			this.Viewer0.TabStop = false;
 			// 
 			// ToolBar
 			// 
 			this.ToolBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.ToolBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSplitButton1,
-            this.toolStripSplitButton2,
-            this.toolStripButton2,
-            this.toolStripButton3});
+            this.Camera1Button,
+            this.Camera2Button,
+            this.OnTopButton,
+            this.SnapToEdgeButon});
 			this.ToolBar.Location = new System.Drawing.Point(0, 0);
 			this.ToolBar.Name = "ToolBar";
-			this.ToolBar.Size = new System.Drawing.Size(664, 25);
+			this.ToolBar.Size = new System.Drawing.Size(360, 25);
 			this.ToolBar.TabIndex = 4;
 			this.ToolBar.Text = "Tool Bar";
 			// 
-			// toolStripSplitButton1
+			// Camera1Button
 			// 
-			this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-			this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-			this.toolStripSplitButton1.Size = new System.Drawing.Size(32, 22);
-			this.toolStripSplitButton1.Text = "toolStripSplitButton1";
+			this.Camera1Button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.Camera1Button.Image = ((System.Drawing.Image)(resources.GetObject("Camera1Button.Image")));
+			this.Camera1Button.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.Camera1Button.Name = "Camera1Button";
+			this.Camera1Button.Size = new System.Drawing.Size(32, 22);
+			this.Camera1Button.Text = "Camera Window 1";
+			this.Camera1Button.ButtonClick += new System.EventHandler(this.Camera1Button_ButtonClick);
 			// 
-			// toolStripSplitButton2
+			// Camera2Button
 			// 
-			this.toolStripSplitButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripSplitButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton2.Image")));
-			this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripSplitButton2.Name = "toolStripSplitButton2";
-			this.toolStripSplitButton2.Size = new System.Drawing.Size(32, 22);
-			this.toolStripSplitButton2.Text = "toolStripSplitButton2";
+			this.Camera2Button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.Camera2Button.Image = ((System.Drawing.Image)(resources.GetObject("Camera2Button.Image")));
+			this.Camera2Button.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.Camera2Button.Name = "Camera2Button";
+			this.Camera2Button.Size = new System.Drawing.Size(32, 22);
+			this.Camera2Button.Text = "Camera Window 2";
+			this.Camera2Button.ButtonClick += new System.EventHandler(this.Camera2Button_ButtonClick);
 			// 
-			// toolStripButton2
+			// OnTopButton
 			// 
-			this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-			this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton2.Name = "toolStripButton2";
-			this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton2.Text = "toolStripButton2";
+			this.OnTopButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.OnTopButton.Image = ((System.Drawing.Image)(resources.GetObject("OnTopButton.Image")));
+			this.OnTopButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.OnTopButton.Name = "OnTopButton";
+			this.OnTopButton.Size = new System.Drawing.Size(23, 22);
+			this.OnTopButton.Text = "Always On Top";
+			this.OnTopButton.Click += new System.EventHandler(this.OnTopButton_Click);
 			// 
-			// toolStripButton3
+			// SnapToEdgeButon
 			// 
-			this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-			this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton3.Name = "toolStripButton3";
-			this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton3.Text = "toolStripButton3";
+			this.SnapToEdgeButon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.SnapToEdgeButon.Image = ((System.Drawing.Image)(resources.GetObject("SnapToEdgeButon.Image")));
+			this.SnapToEdgeButon.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.SnapToEdgeButon.Name = "SnapToEdgeButon";
+			this.SnapToEdgeButon.Size = new System.Drawing.Size(23, 22);
+			this.SnapToEdgeButon.Text = "Snap To Edge";
+			this.SnapToEdgeButon.Click += new System.EventHandler(this.SnapToEdgeButon_Click);
 			// 
-			// CamViewer
+			// Viewer1
+			// 
+			this.Viewer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Viewer1.Location = new System.Drawing.Point(12, 289);
+			this.Viewer1.Name = "Viewer1";
+			this.Viewer1.Size = new System.Drawing.Size(336, 255);
+			this.Viewer1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.Viewer1.TabIndex = 5;
+			this.Viewer1.TabStop = false;
+			// 
+			// Synesthesia
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(664, 531);
+			this.ClientSize = new System.Drawing.Size(360, 556);
+			this.Controls.Add(this.Viewer1);
 			this.Controls.Add(this.ToolBar);
-			this.Controls.Add(this.DeviceList);
-			this.Controls.Add(this.Viewer);
-			this.Controls.Add(this.PowerButton);
+			this.Controls.Add(this.Viewer0);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "CamViewer";
+			this.Name = "Synesthesia";
 			this.Text = "Synesthesia";
 			this.Move += new System.EventHandler(this.CamViewer_Move);
-			((System.ComponentModel.ISupportInitialize)(this.Viewer)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.Viewer0)).EndInit();
 			this.ToolBar.ResumeLayout(false);
 			this.ToolBar.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Viewer1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.Button PowerButton;
-		private System.Windows.Forms.PictureBox Viewer;
-		private System.Windows.Forms.ComboBox DeviceList;
+		private System.Windows.Forms.PictureBox Viewer0;
 		private System.Windows.Forms.ToolStrip ToolBar;
-		private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
-		private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton2;
-		private System.Windows.Forms.ToolStripButton toolStripButton2;
-		private System.Windows.Forms.ToolStripButton toolStripButton3;
+		private System.Windows.Forms.ToolStripSplitButton Camera1Button;
+		private System.Windows.Forms.ToolStripSplitButton Camera2Button;
+		private System.Windows.Forms.ToolStripButton OnTopButton;
+		private System.Windows.Forms.ToolStripButton SnapToEdgeButon;
+		private System.Windows.Forms.PictureBox Viewer1;
 	}
 }
 
