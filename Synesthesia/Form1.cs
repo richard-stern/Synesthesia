@@ -115,7 +115,7 @@ namespace Synesthesia
 		//------------------------------------------------------------------------------------
 		private void CamViewer_Move(object sender, EventArgs e)
 		{
-			if(m_bSnapEnabled)
+			if(m_bSnapEnabled && WindowState != FormWindowState.Minimized)
 			{
 				Screen screen = Screen.FromPoint(Location);
 
