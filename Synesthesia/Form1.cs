@@ -69,19 +69,6 @@ namespace Synesthesia
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
-		//private void InitStartingPos()
-		//{
-		//	Screen myScreen = Screen.FromControl(this);
-		//	Rectangle area = myScreen.WorkingArea;
-		//	StartPosition = FormStartPosition.Manual;
-
-		//	int width = 420;
-		//	Location = new Point(area.Width - width, 0);
-		//	Size = new Size(width, 366);
-		//}
-
-		//------------------------------------------------------------------------------------
-		//------------------------------------------------------------------------------------
 		private void InitCameraLists()
 		{
 			int nCount = m_DeviceManager.GetDeviceCount();
@@ -286,9 +273,6 @@ namespace Synesthesia
 
 			m_aPictureBoxes[nViewerId].Visible = false;
 			UpdateLayout();
-			//m_DefaultImage
-			//Viewer1.Visible = false;
-			//Height -= Viewer1.Height;
 		}
 
 		//------------------------------------------------------------------------------------
@@ -303,7 +287,8 @@ namespace Synesthesia
 		//------------------------------------------------------------------------------------
 		private void Synesthesia_Resize(object sender, EventArgs e)
 		{
-			UpdateLayout();
+			if(WindowState == FormWindowState.Normal)
+				UpdateLayout();
 		}
 
 		//------------------------------------------------------------------------------------
@@ -327,23 +312,24 @@ namespace Synesthesia
 		//------------------------------------------------------------------------------------
 		private void LoadData()
 		{
-			m_SaveData.Load();
-
-			Location = m_SaveData.m_FormPos;
-			Size = m_SaveData.m_FormSize;
-
-			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
+			if (m_SaveData.Load())
 			{
-				int nDeviceIndex = m_SaveData.m_nDeviceIndex[i];
-				if(nDeviceIndex >= 0)
-				{
-					VideoSource source = m_DeviceManager.GetDevice(nDeviceIndex);
-					m_aCamViewer[i].SetDevice(source, nDeviceIndex);
-				}
-			}
+				Location = m_SaveData.m_FormPos;
+				Size = m_SaveData.m_FormSize;
 
-			SetSnapToEdge(m_SaveData.m_bSnapToEdge);
-			SetAlwaysOnTop(m_SaveData.m_bAlwaysOnTop);
+				for (int i = 0; i < CAM_VIEWER_COUNT; ++i)
+				{
+					int nDeviceIndex = m_SaveData.m_nDeviceIndex[i];
+					if (nDeviceIndex >= 0)
+					{
+						VideoSource source = m_DeviceManager.GetDevice(nDeviceIndex);
+						m_aCamViewer[i].SetDevice(source, nDeviceIndex);
+					}
+				}
+
+				SetSnapToEdge(m_SaveData.m_bSnapToEdge);
+				SetAlwaysOnTop(m_SaveData.m_bAlwaysOnTop);
+			}
 		}
 
 		//------------------------------------------------------------------------------------

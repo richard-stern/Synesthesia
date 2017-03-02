@@ -35,9 +35,9 @@
 			this.Camera2Button = new System.Windows.Forms.ToolStripSplitButton();
 			this.OnTopButton = new System.Windows.Forms.ToolStripButton();
 			this.SnapToEdgeButon = new System.Windows.Forms.ToolStripButton();
-			this.Viewer1 = new System.Windows.Forms.PictureBox();
-			this.SnapShotLabel = new System.Windows.Forms.ToolStripLabel();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.SnapShotLabel = new System.Windows.Forms.ToolStripLabel();
+			this.Viewer1 = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.Viewer0)).BeginInit();
 			this.ToolBar.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Viewer1)).BeginInit();
@@ -111,6 +111,18 @@
 			this.SnapToEdgeButon.Text = "Snap To Edge";
 			this.SnapToEdgeButon.Click += new System.EventHandler(this.SnapToEdgeButon_Click);
 			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// SnapShotLabel
+			// 
+			this.SnapShotLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.SnapShotLabel.Name = "SnapShotLabel";
+			this.SnapShotLabel.Size = new System.Drawing.Size(203, 22);
+			this.SnapShotLabel.Text = "Double click video to take screenshot";
+			// 
 			// Viewer1
 			// 
 			this.Viewer1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -123,18 +135,6 @@
 			this.Viewer1.TabStop = false;
 			this.Viewer1.DoubleClick += new System.EventHandler(this.Viewer1_DoubleClick);
 			// 
-			// SnapShotLabel
-			// 
-			this.SnapShotLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-			this.SnapShotLabel.Name = "SnapShotLabel";
-			this.SnapShotLabel.Size = new System.Drawing.Size(203, 22);
-			this.SnapShotLabel.Text = "Double click video to take screenshot";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
 			// Synesthesia
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,7 +144,9 @@
 			this.Controls.Add(this.ToolBar);
 			this.Controls.Add(this.Viewer0);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
 			this.Name = "Synesthesia";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Synesthesia";
 			this.Shown += new System.EventHandler(this.Form1_Shown);
 			this.Move += new System.EventHandler(this.CamViewer_Move);
