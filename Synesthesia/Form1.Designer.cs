@@ -43,8 +43,8 @@
 			// 
 			// Viewer0
 			// 
-			this.Viewer0.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.Viewer0.Image = ((System.Drawing.Image)(resources.GetObject("Viewer0.Image")));
+			this.Viewer0.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.Viewer0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Viewer0.Location = new System.Drawing.Point(12, 28);
 			this.Viewer0.Name = "Viewer0";
 			this.Viewer0.Size = new System.Drawing.Size(336, 255);
@@ -108,8 +108,8 @@
 			// 
 			// Viewer1
 			// 
-			this.Viewer1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-			this.Viewer1.Image = ((System.Drawing.Image)(resources.GetObject("Viewer1.Image")));
+			this.Viewer1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.Viewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.Viewer1.Location = new System.Drawing.Point(12, 289);
 			this.Viewer1.Name = "Viewer1";
 			this.Viewer1.Size = new System.Drawing.Size(336, 255);
@@ -130,6 +130,7 @@
 			this.Text = "Synesthesia";
 			this.Shown += new System.EventHandler(this.Form1_Shown);
 			this.Move += new System.EventHandler(this.CamViewer_Move);
+			this.Resize += new System.EventHandler(this.Synesthesia_Resize);
 			((System.ComponentModel.ISupportInitialize)(this.Viewer0)).EndInit();
 			this.ToolBar.ResumeLayout(false);
 			this.ToolBar.PerformLayout();

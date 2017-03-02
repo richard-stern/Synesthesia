@@ -78,7 +78,17 @@ class CamViewer
 	//------------------------------------------------------------------------------------
 	private void Repaint(object sender, NewFrameEventArgs eventArgs)
 	{
-		Bitmap bitmap = eventArgs.Frame;
-		m_PictureBox.Image = (Bitmap)bitmap.Clone();
+		//The AForge library calls this function from a seperate thread.
+		//Painting has to happen in an invoked delegate otherwise it's not thread safe.
+		if(m_PictureBox.InvokeRequired)
+		{
+			m_PictureBox.Invoke(new MethodInvoker(
+				delegate()
+				{
+					Bitmap bitmap = eventArgs.Frame;
+					m_PictureBox.Image = (Bitmap)bitmap.Clone();
+				}
+			));
+		}
 	}
 }

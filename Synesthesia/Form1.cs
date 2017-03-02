@@ -16,7 +16,10 @@ namespace Synesthesia
 		private int m_nSnapDist = 25;
 		private bool m_bSnapEnabled = true;
 		private int m_nViewerAreaTop = 0;
-		private int m_nToolBarPadding = 6;
+		private int m_nTitleBarHeight = 0;
+		private const int m_nToolBarPadding = 6;
+		private const int m_nViewerSpacing = 6;
+		private const int m_nBottomSpacing = 8;
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
@@ -49,8 +52,8 @@ namespace Synesthesia
 			TopMost = true;
 
 			Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
-			int nTitleBarHeight = screenRectangle.Top - Top;
-			m_nViewerAreaTop = nTitleBarHeight + ToolBar.Height + m_nToolBarPadding;
+			m_nTitleBarHeight = screenRectangle.Top - Top;
+			m_nViewerAreaTop = m_nTitleBarHeight + ToolBar.Height + m_nToolBarPadding;
 		}
 
 		//------------------------------------------------------------------------------------
@@ -113,7 +116,7 @@ namespace Synesthesia
 		private bool CheckForSnap(int pos, int edge)
 		{
 			int delta = pos - edge;
-			return delta < 0 || (delta > 0 && delta <= m_nSnapDist);
+			return delta < 0 || (delta >= 0 && delta <= m_nSnapDist);
 		}
 
 		//------------------------------------------------------------------------------------
@@ -126,14 +129,12 @@ namespace Synesthesia
 
 				if(CheckForSnap(Left, screen.WorkingArea.Left))
 					Left = screen.WorkingArea.Left;
+				else if(CheckForSnap(screen.WorkingArea.Right, Right))
+					Left = screen.WorkingArea.Right - Width;
 
 				if(CheckForSnap(Top, screen.WorkingArea.Top))
 					Top = screen.WorkingArea.Top;
-
-				if(CheckForSnap(screen.WorkingArea.Right, Right))
-					Left = screen.WorkingArea.Right - Width;
-
-				if(CheckForSnap(screen.WorkingArea.Bottom, Bottom))
+				else if(CheckForSnap(screen.WorkingArea.Bottom, Bottom))
 					Top = screen.WorkingArea.Bottom - Height;
 			}
 		}
@@ -216,16 +217,26 @@ namespace Synesthesia
 			{
 				if(m_aPictureBoxes[i].Visible)
 				{
-					int boxHeight = (int)(Width * INV_ASPECT_RATIO);
-					nNeededHeight += boxHeight;
-					m_aPictureBoxes[i].Height = boxHeight;
-					m_aPictureBoxes[i].Top = m_nViewerAreaTop + (nVisibleCount * boxHeight);
+					m_aPictureBoxes[i].Left = m_nViewerSpacing;
+					m_aPictureBoxes[i].Width = ClientRectangle.Width - (m_nViewerSpacing * 2);
+					m_aPictureBoxes[i].Height = (int)(m_aPictureBoxes[i].Width * INV_ASPECT_RATIO);
+					m_aPictureBoxes[i].Top = ToolBar.Bottom + (nVisibleCount * (m_aPictureBoxes[i].Height + m_nViewerSpacing));
 					++nVisibleCount;
+					nNeededHeight = m_aPictureBoxes[i].Bottom;
 				}
 			}
 
+			//Offset bottom by height of title bar and add a bit of extra spacing for appearances.
+			nNeededHeight += m_nTitleBarHeight + m_nToolBarPadding + m_nBottomSpacing;
+
 			if(nNeededHeight < m_nViewerAreaTop)
 				nNeededHeight = m_nViewerAreaTop;
+
+			Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
+			Screen myScreen = Screen.FromControl(this);
+			Rectangle area = myScreen.WorkingArea;
+			if(screenRectangle.Top + nNeededHeight > area.Height)
+				nNeededHeight = area.Height - screenRectangle.Top;
 			Height = nNeededHeight;
 		}
 
@@ -262,6 +273,13 @@ namespace Synesthesia
 		{
 			Camera1Button.DropDownItems[nButtonIndex].Enabled = bEnabled;
 			Camera2Button.DropDownItems[nButtonIndex].Enabled = bEnabled;
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void Synesthesia_Resize(object sender, EventArgs e)
+		{
+			UpdateLayout();
 		}
 	}
 }
