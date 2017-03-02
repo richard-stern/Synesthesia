@@ -1,6 +1,7 @@
 ﻿using AForge.Video;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 //------------------------------------------------------------------------------------
@@ -88,14 +89,28 @@ class CamViewer
 				m_PictureBox.Invoke(new MethodInvoker(
 					delegate()
 					{
-						Bitmap bitmap = eventArgs.Frame;
-						m_PictureBox.Image = (Bitmap)bitmap.Clone();
+						Bitmap image = eventArgs.Frame;
+						m_PictureBox.Image = (Bitmap)image.Clone();
 					}
 				));
 			}
 		}
 		catch(ObjectDisposedException)
 		{
+		}
+	}
+
+	//------------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------------
+	public void SaveSnapshot()
+	{
+		if(m_PictureBox.Image != null)
+		{
+			Bitmap snapshot = new Bitmap(m_PictureBox.Image);
+			string strFilename = DateTime.Now.ToString("yyyy-MM-dd (HH.mm.ss)") + ".png";
+			snapshot.Save(strFilename, ImageFormat.Png);
+			snapshot.Dispose();
+			snapshot = null;
 		}
 	}
 }

@@ -345,5 +345,19 @@ namespace Synesthesia
 			SetSnapToEdge(m_SaveData.m_bSnapToEdge);
 			SetAlwaysOnTop(m_SaveData.m_bAlwaysOnTop);
 		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void Viewer0_DoubleClick(object sender, EventArgs e)
+		{
+			m_aCamViewer[0].SaveSnapshot();
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void Viewer1_DoubleClick(object sender, EventArgs e)
+		{
+			m_aCamViewer[1].SaveSnapshot();
+		}
 	}
 }

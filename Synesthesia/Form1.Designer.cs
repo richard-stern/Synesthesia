@@ -51,6 +51,7 @@
 			this.Viewer0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.Viewer0.TabIndex = 2;
 			this.Viewer0.TabStop = false;
+			this.Viewer0.DoubleClick += new System.EventHandler(this.Viewer0_DoubleClick);
 			// 
 			// ToolBar
 			// 
@@ -116,6 +117,7 @@
 			this.Viewer1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.Viewer1.TabIndex = 5;
 			this.Viewer1.TabStop = false;
+			this.Viewer1.DoubleClick += new System.EventHandler(this.Viewer1_DoubleClick);
 			// 
 			// Synesthesia
 			// 
