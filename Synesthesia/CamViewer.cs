@@ -1,4 +1,5 @@
 ﻿using AForge.Video;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -80,15 +81,21 @@ class CamViewer
 	{
 		//The AForge library calls this function from a seperate thread.
 		//Painting has to happen in an invoked delegate otherwise it's not thread safe.
-		if(m_PictureBox.InvokeRequired)
+		try
 		{
-			m_PictureBox.Invoke(new MethodInvoker(
-				delegate()
-				{
-					Bitmap bitmap = eventArgs.Frame;
-					m_PictureBox.Image = (Bitmap)bitmap.Clone();
-				}
-			));
+			if(m_PictureBox.InvokeRequired)
+			{
+				m_PictureBox.Invoke(new MethodInvoker(
+					delegate()
+					{
+						Bitmap bitmap = eventArgs.Frame;
+						m_PictureBox.Image = (Bitmap)bitmap.Clone();
+					}
+				));
+			}
+		}
+		catch(ObjectDisposedException)
+		{
 		}
 	}
 }

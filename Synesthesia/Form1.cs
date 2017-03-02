@@ -43,6 +43,7 @@ namespace Synesthesia
 			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
 			{
 				m_aCamViewer[i] = new CamViewer(m_aPictureBoxes[i]);
+				m_aPictureBoxes[i].Visible = false;
 			}
 			
 			//Init other variables
@@ -54,6 +55,7 @@ namespace Synesthesia
 			Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
 			m_nTitleBarHeight = screenRectangle.Top - Top;
 			m_nViewerAreaTop = m_nTitleBarHeight + ToolBar.Height + m_nToolBarPadding;
+			UpdateLayout();
 		}
 
 		//------------------------------------------------------------------------------------
@@ -213,6 +215,8 @@ namespace Synesthesia
 		{
 			int nNeededHeight = 0;
 			int nVisibleCount = 0;
+
+			//Resize window to fit all the viewers and arrange them inside.
 			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
 			{
 				if(m_aPictureBoxes[i].Visible)
@@ -229,14 +233,17 @@ namespace Synesthesia
 			//Offset bottom by height of title bar and add a bit of extra spacing for appearances.
 			nNeededHeight += m_nTitleBarHeight + m_nToolBarPadding + m_nBottomSpacing;
 
+			//Prevent window being so small that the tool bar isn't displayed.
 			if(nNeededHeight < m_nViewerAreaTop)
 				nNeededHeight = m_nViewerAreaTop;
 
+			//Prevent window scaling larger than screen.
 			Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
 			Screen myScreen = Screen.FromControl(this);
 			Rectangle area = myScreen.WorkingArea;
 			if(screenRectangle.Top + nNeededHeight > area.Height)
 				nNeededHeight = area.Height - screenRectangle.Top;
+
 			Height = nNeededHeight;
 		}
 
