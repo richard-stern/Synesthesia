@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CamViewer")]
+[assembly: AssemblyTitle("Synesthesia")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Academy of Interactive Entertainment")]
-[assembly: AssemblyProduct("CamViewer")]
+[assembly: AssemblyProduct("Synesthesia")]
 [assembly: AssemblyCopyright("Copyright © Academy of Interactive Entertainment 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
