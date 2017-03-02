@@ -36,6 +36,8 @@
 			this.OnTopButton = new System.Windows.Forms.ToolStripButton();
 			this.SnapToEdgeButon = new System.Windows.Forms.ToolStripButton();
 			this.Viewer1 = new System.Windows.Forms.PictureBox();
+			this.SnapShotLabel = new System.Windows.Forms.ToolStripLabel();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			((System.ComponentModel.ISupportInitialize)(this.Viewer0)).BeginInit();
 			this.ToolBar.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Viewer1)).BeginInit();
@@ -60,7 +62,9 @@
             this.Camera1Button,
             this.Camera2Button,
             this.OnTopButton,
-            this.SnapToEdgeButon});
+            this.SnapToEdgeButon,
+            this.toolStripSeparator1,
+            this.SnapShotLabel});
 			this.ToolBar.Location = new System.Drawing.Point(0, 0);
 			this.ToolBar.Name = "ToolBar";
 			this.ToolBar.Size = new System.Drawing.Size(360, 25);
@@ -119,6 +123,18 @@
 			this.Viewer1.TabStop = false;
 			this.Viewer1.DoubleClick += new System.EventHandler(this.Viewer1_DoubleClick);
 			// 
+			// SnapShotLabel
+			// 
+			this.SnapShotLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.SnapShotLabel.Name = "SnapShotLabel";
+			this.SnapShotLabel.Size = new System.Drawing.Size(203, 22);
+			this.SnapShotLabel.Text = "Double click video to take screenshot";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
 			// Synesthesia
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,6 +166,8 @@
 		private System.Windows.Forms.ToolStripButton OnTopButton;
 		private System.Windows.Forms.ToolStripButton SnapToEdgeButon;
 		private System.Windows.Forms.PictureBox Viewer1;
+		private System.Windows.Forms.ToolStripLabel SnapShotLabel;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 	}
 }
 
