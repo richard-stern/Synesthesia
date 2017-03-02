@@ -7,7 +7,7 @@ namespace Synesthesia
 {
 	public partial class Synesthesia : Form
 	{
-		const int CAM_VIEWER_COUNT = 2;
+		public static int CAM_VIEWER_COUNT = 2;
 		const float INV_ASPECT_RATIO = 1.0f / (4.0f / 3.0f);
 
 		private DeviceManager m_DeviceManager = null;
@@ -21,6 +21,8 @@ namespace Synesthesia
 		private const int m_nViewerSpacing = 6;
 		private const int m_nBottomSpacing = 8;
 
+		private SaveData m_SaveData = null;
+
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
 		public Synesthesia()
@@ -29,9 +31,6 @@ namespace Synesthesia
 			InitializeComponent();
 			FormClosing += new FormClosingEventHandler(Form1_FormClosing);
 			
-			//Set the starting position
-			//InitStartingPos();
-
 			//Initialise devices
 			m_DeviceManager = new DeviceManager();
 			InitCameraLists();
@@ -55,6 +54,9 @@ namespace Synesthesia
 			Rectangle screenRectangle = RectangleToScreen(ClientRectangle);
 			m_nTitleBarHeight = screenRectangle.Top - Top;
 			m_nViewerAreaTop = m_nTitleBarHeight + ToolBar.Height + m_nToolBarPadding;
+
+			m_SaveData = new SaveData();
+			LoadData();
 			UpdateLayout();
 		}
 
@@ -67,16 +69,16 @@ namespace Synesthesia
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
-		private void InitStartingPos()
-		{
-			Screen myScreen = Screen.FromControl(this);
-			Rectangle area = myScreen.WorkingArea;
-			StartPosition = FormStartPosition.Manual;
+		//private void InitStartingPos()
+		//{
+		//	Screen myScreen = Screen.FromControl(this);
+		//	Rectangle area = myScreen.WorkingArea;
+		//	StartPosition = FormStartPosition.Manual;
 
-			int width = 420;
-			Location = new Point(area.Width - width, 0);
-			Size = new Size(width, 366);
-		}
+		//	int width = 420;
+		//	Location = new Point(area.Width - width, 0);
+		//	Size = new Size(width, 366);
+		//}
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
@@ -103,6 +105,7 @@ namespace Synesthesia
 		//------------------------------------------------------------------------------------
 		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			SaveData();
 			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
 			{
 				bool bPlaying = m_aCamViewer[i].GetIsPlaying();
@@ -143,9 +146,9 @@ namespace Synesthesia
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
-		private void SnapToEdgeButon_Click(object sender, EventArgs e)
+		private void SetSnapToEdge(bool bSnap)
 		{
-			m_bSnapEnabled = !m_bSnapEnabled;
+			m_bSnapEnabled = bSnap;
 			if(m_bSnapEnabled)
 				SnapToEdgeButon.BackColor = Color.Green;
 			else
@@ -154,13 +157,27 @@ namespace Synesthesia
 
 		//------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------
-		private void OnTopButton_Click(object sender, EventArgs e)
+		private void SetAlwaysOnTop(bool bOnTop)
 		{
-			TopMost = !TopMost;
+			TopMost = bOnTop;
 			if(TopMost)
 				OnTopButton.BackColor = Color.Green;
 			else
 				OnTopButton.BackColor = Color.Red;
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void SnapToEdgeButon_Click(object sender, EventArgs e)
+		{
+			SetSnapToEdge(!m_bSnapEnabled);
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void OnTopButton_Click(object sender, EventArgs e)
+		{
+			SetAlwaysOnTop(!TopMost);
 		}
 
 		//------------------------------------------------------------------------------------
@@ -287,6 +304,46 @@ namespace Synesthesia
 		private void Synesthesia_Resize(object sender, EventArgs e)
 		{
 			UpdateLayout();
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void SaveData()
+		{
+			m_SaveData.m_FormPos = Location;
+			m_SaveData.m_FormSize = Size;
+
+			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
+			{
+				m_SaveData.m_nDeviceIndex[i] = m_aCamViewer[i].GetDeviceIndex();
+			}
+
+			m_SaveData.m_bSnapToEdge = m_bSnapEnabled;
+			m_SaveData.m_bAlwaysOnTop = TopMost;
+			m_SaveData.Save();
+		}
+
+		//------------------------------------------------------------------------------------
+		//------------------------------------------------------------------------------------
+		private void LoadData()
+		{
+			m_SaveData.Load();
+
+			Location = m_SaveData.m_FormPos;
+			Size = m_SaveData.m_FormSize;
+
+			for(int i = 0; i < CAM_VIEWER_COUNT; ++i)
+			{
+				int nDeviceIndex = m_SaveData.m_nDeviceIndex[i];
+				if(nDeviceIndex >= 0)
+				{
+					VideoSource source = m_DeviceManager.GetDevice(nDeviceIndex);
+					m_aCamViewer[i].SetDevice(source, nDeviceIndex);
+				}
+			}
+
+			SetSnapToEdge(m_SaveData.m_bSnapToEdge);
+			SetAlwaysOnTop(m_SaveData.m_bAlwaysOnTop);
 		}
 	}
 }
